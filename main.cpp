@@ -1,46 +1,223 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+#include <cmath>
+#include <iomanip>
+#include "json/json.h"
+
 using namespace std;
 
-vector<long long> poly_from_roots(const vector<long long>& roots) {
-    vector<long long> poly = {1};
-    for (long long r : roots) {
-        vector<long long> term = {-r, 1};
-        vector<long long> newpoly(poly.size() + 1, 0);
-        for (size_t i = 0; i < poly.size(); i++) {
-            for (size_t j = 0; j < term.size(); j++) {
-                newpoly[i + j] += poly[i] * term[j];
+long long convertToDecimal(int base, const string& value) {
+    long long result = 0;
+    long long power = 1;
+    
+    for (int i = value.length() - 1; i >= 0; i--) {
+        int digit;
+        if (value[i] >= '0' && value[i] <= '9') {
+            digit = value[i] - '0';
+        } else if (value[i] >= 'A' && value[i] <= 'Z') {
+            digit = value[i] - 'A' + 10;
+        } else if (value[i] >= 'a' && value[i] <= 'z') {
+            digit = value[i] - 'a' + 10;
+        } else {
+            throw invalid_argument("Invalid character in number");
+        }
+        
+        if (digit >= base) {
+            throw invalid_argument("Digit exceeds base");
+        }
+        
+        result += digit * power;
+        power *= base;
+    }
+    
+    return result;
+}
+
+double lagrangeInterpolation(const vector<pair<int, long long>>& points, int x) {
+    double result = 0.0;
+    int n = points.size();
+    
+    for (int i = 0; i < n; i++) {
+        double term = points[i].second;
+        
+        for (int j = 0; j < n; j++) {
+            if (i != j) {
+                term = term * (double)(x - points[j].first) / (double)(points[i].first - points[j].first);
             }
         }
-        poly = newpoly;
+        
+        result += term;
     }
-    reverse(poly.begin(), poly.end());
-    return poly;
+    
+    return result;
 }
 
 int main() {
-    vector<long long> roots_tc1 = {
-        stoll("4", nullptr, 10),
-        stoll("111", nullptr, 2),
-        stoll("12", nullptr, 10)
-    };
-    vector<long long> coeffs_tc1 = poly_from_roots(roots_tc1);
-    cout << "Testcase 1 Coefficients (descending):\n";
-    for (auto c : coeffs_tc1) cout << c << " ";
-    cout << "\n\n";
+    try {
+        ifstream file("input.json");
+        if (!file.is_open()) {
+            cout << "Warning: Could not open input.json file. Using hardcoded test data.\n" << endl;
+        }
+        
+        Json::Value root;
+        
+        if (file.is_open()) {
+            file >> root;
+            file.close();
+        } else {
+            string testJson = R"({
+                "keys": {
+                    "n": 4,
+                    "k": 3
+                },
+                "1": {
+                    "base": "10",
+                    "value": "4"
+                },
+                "2": {
+                    "base": "2",
+                    "value": "111"
+                },
+                "3": {
+                    "base": "10",
+                    "value": "12"
+                },
+                "6": {
+                    "base": "4",
+                    "value": "213"
+                }
+            })";
+            
+            Json::Reader reader;
+            reader.parse(testJson, root);
+        }
+        
+        int n = root["keys"]["n"].asInt();
+        int k = root["keys"]["k"].asInt();
+        
+        cout << "=== Shamir's Secret Sharing Implementation ===" << endl << endl;
+        cout << "n (total roots): " << n << endl;
+        cout << "k (minimum required): " << k << endl;
+        cout << "Polynomial degree: " << k-1 << endl << endl;
+        
+        vector<pair<int, long long>> points;
+        
+        for (int i = 1; i <= n; i++) {
+            string key = to_string(i);
+            if (root.isMember(key)) {
+                int base = stoi(root[key]["base"].asString());
+                string value = root[key]["value"].asString();
+                long long y = convertToDecimal(base, value);
+                points.push_back({i, y});
+                
+                cout << "Root " << i << ": (" << i << ", " << y << ") ";
+                cout << "[base " << base << ": \"" << value << "\" → " << y << "]" << endl;
+            }
+        }
+        
+        if (points.size() < k) {
+            cout << "Error: Not enough points to reconstruct polynomial!" << endl;
+            return 1;
+        }
+        
+        vector<pair<int, long long>> selectedPoints(points.begin(), points.begin() + k);
+        
+        cout << "\nUsing first " << k << " points for reconstruction:" << endl;
+        for (const auto& point : selectedPoints) {
+            cout << "(" << point.first << ", " << point.second << ") ";
+        }
+        cout << endl;
+        
+        double secretDouble = lagrangeInterpolation(selectedPoints, 0);
+        long long secret = round(secretDouble);
+        
+        cout << "\nLagrange interpolation calculation:" << endl;
+        cout << "f(0) = " << fixed << setprecision(6) << secretDouble << endl;
+        cout << "Secret (constant term): " << secret << endl;
+        
+        if (points.size() > k) {
+            cout << "\nVerification with remaining points:" << endl;
+            for (size_t i = k; i < points.size(); i++) {
+                int x = points[i].first;
+                long long actualY = points[i].second;
+                double calculatedY = lagrangeInterpolation(selectedPoints, x);
+                long long roundedCalculatedY = round(calculatedY);
+                
+                cout << "Point (" << x << ", " << actualY << "): ";
+                cout << "Calculated = " << roundedCalculatedY;
+                cout << ", Match = " << (actualY == roundedCalculatedY ? "TRUE" : "FALSE") << endl;
+            }
+        }
+        
+        cout << "\n=== FINAL OUTPUT: " << secret << " ===" << endl;
+        
+        return 0;
+        
+    } catch (const exception& e) {
+        cout << "Error: " << e.what() << endl;
+        return 1;
+    }
+}
 
-    vector<pair<int,string>> tc2 = {
-        {6, "13444211440455345511"},
-        {15,"aed7015a346d635"},
-        {15,"6aeeb69631c227c"},
-        {16,"e1b5e05623d881f"},
-        {8,"316034514573652620673"},
-        {3,"2122212201122002221120200210011020220200"},
-        {3,"20120221122211000100210021102001201112121"}
+#include <iostream>
+#include <vector>
+#include <string>
+#include <cmath>
+#include <iomanip>
+
+using namespace std;
+
+int main() {
+    cout << "=== Shamir's Secret Sharing Implementation ===" << endl << endl;
+    
+    int n = 4, k = 3;
+    vector<pair<int, pair<int, string>>> rawData = {
+        {1, {10, "4"}},
+        {2, {2, "111"}},
+        {3, {10, "12"}},
+        {6, {4, "213"}}
     };
-    vector<long long> roots_tc2;
-    for (auto &p : tc2) roots_tc2.push_back(stoll(p.second, nullptr, p.first));
-    vector<long long> coeffs_tc2 = poly_from_roots(roots_tc2);
-    cout << "Testcase 2 Coefficients (descending):\n";
-    for (auto c : coeffs_tc2) cout << c << " ";
-    cout << "\n";
+    
+    cout << "n (total roots): " << n << endl;
+    cout << "k (minimum required): " << k << endl;
+    cout << "Polynomial degree: " << k-1 << endl << endl;
+    
+    vector<pair<int, long long>> points;
+    
+    for (auto& data : rawData) {
+        int x = data.first;
+        int base = data.second.first;
+        string value = data.second.second;
+        
+        long long y = 0;
+        long long power = 1;
+        for (int i = value.length() - 1; i >= 0; i--) {
+            int digit = (value[i] >= '0' && value[i] <= '9') ? value[i] - '0' : value[i] - 'A' + 10;
+            y += digit * power;
+            power *= base;
+        }
+        
+        points.push_back({x, y});
+        cout << "Root " << x << ": (" << x << ", " << y << ") [base " << base << ": \"" << value << "\" → " << y << "]" << endl;
+    }
+    
+    vector<pair<int, long long>> selectedPoints(points.begin(), points.begin() + k);
+    
+    double secret = 0.0;
+    for (int i = 0; i < k; i++) {
+        double term = selectedPoints[i].second;
+        for (int j = 0; j < k; j++) {
+            if (i != j) {
+                term *= (0.0 - selectedPoints[j].first) / (double)(selectedPoints[i].first - selectedPoints[j].first);
+            }
+        }
+        secret += term;
+    }
+    
+    cout << "\nSecret (constant term): " << round(secret) << endl;
+    cout << "\n=== FINAL OUTPUT: " << round(secret) << " ===" << endl;
+    
+    return 0;
 }
