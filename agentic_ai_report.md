@@ -48,7 +48,7 @@ AI automation encompasses a spectrum of capabilities:
 
 The journey from traditional automation to agentic AI systems represents a decades-long evolution driven by advancements in computing, data availability, and machine learning research.
 
-![Figure 1.1 — Evolution from Traditional Automation to Agentic AI](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/13_evolution_timeline.png)
+![Figure 1.1 — Evolution from Traditional Automation to Agentic AI](diagrams/13_evolution_timeline.png)
 
 ````
 
@@ -196,7 +196,7 @@ Tools are external functions the agent can invoke. Categories include:
 
 ### 3.1 High-Level System Architecture
 
-![Figure 3.1 — Agentic AI System Architecture](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/01_system_architecture.png)
+![Figure 3.1 — Agentic AI System Architecture](diagrams/01_system_architecture.png)
 
 ````
 
@@ -229,13 +229,13 @@ All requests pass through a centralized API gateway responsible for:
 
 The orchestration layer coordinates multi-step agent execution:
 
-![Figure 3.2 — Workflow Orchestration Engine](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/02_workflow_orchestration.png)
+![Figure 3.2 — Workflow Orchestration Engine](diagrams/02_workflow_orchestration.png)
 
 ````
 
 ### 3.5 Memory Layer Architecture
 
-![Figure 3.3 — Memory Architecture](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/03_memory_architecture.png)
+![Figure 3.3 — Memory Architecture](diagrams/03_memory_architecture.png)
 
 ````
 
@@ -243,7 +243,7 @@ The orchestration layer coordinates multi-step agent execution:
 
 Vector databases store embeddings—high-dimensional numerical representations of text, images, or other data—enabling semantic similarity search.
 
-![Figure 3.4 — Vector Database & RAG Pipeline](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/04_vector_db_pipeline.png)
+![Figure 3.4 — Vector Database & RAG Pipeline](diagrams/04_vector_db_pipeline.png)
 
 ````
 
@@ -260,7 +260,7 @@ Vector databases store embeddings—high-dimensional numerical representations o
 
 ### 3.7 Human-in-the-Loop (HITL) Architecture
 
-![Figure 3.5 — Human-in-the-Loop Architecture](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/05_hitl_workflow.png)
+![Figure 3.5 — Human-in-the-Loop Architecture](diagrams/05_hitl_workflow.png)
 
 ````
 
@@ -622,7 +622,7 @@ result = crew.kickoff(inputs={"topic": "Agentic AI market trends 2026"})
 
 **Objective:** Automate the end-to-end recruitment pipeline from job posting to interview scheduling.
 
-![Figure 5.1 — HR Recruitment Automation Workflow](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/07_hr_recruitment_workflow.png)
+![Figure 5.1 — HR Recruitment Automation Workflow](diagrams/07_hr_recruitment_workflow.png)
 
 ````
 
@@ -636,7 +636,7 @@ result = crew.kickoff(inputs={"topic": "Agentic AI market trends 2026"})
 
 **Objective:** Resolve Tier-1 and Tier-2 customer inquiries autonomously; escalate complex issues.
 
-![Figure 5.2 — Customer Support Automation Workflow](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/08_customer_support_workflow.png)
+![Figure 5.2 — Customer Support Automation Workflow](diagrams/08_customer_support_workflow.png)
 
 ````
 
@@ -650,7 +650,7 @@ result = crew.kickoff(inputs={"topic": "Agentic AI market trends 2026"})
 
 **Objective:** Extract, validate, and post invoices from email/uploaded PDFs without manual entry.
 
-![Figure 5.3 — Invoice Processing Workflow](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/09_invoice_processing_workflow.png)
+![Figure 5.3 — Invoice Processing Workflow](diagrams/09_invoice_processing_workflow.png)
 
 ````
 
@@ -664,7 +664,7 @@ result = crew.kickoff(inputs={"topic": "Agentic AI market trends 2026"})
 
 **Objective:** Automate contract review, due diligence, and compliance checking.
 
-![Figure 5.4 — Legal Workflow Automation](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/15_legal_workflow.png)
+![Figure 5.4 — Legal Workflow Automation](diagrams/15_legal_workflow.png)
 
 ````
 
@@ -708,7 +708,7 @@ result = crew.kickoff(inputs={"topic": "Agentic AI market trends 2026"})
 
 Meta's official enterprise WhatsApp API enabling programmatic message sending and receiving.
 
-![Figure 6.1 — WhatsApp Cloud API Architecture](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/16_whatsapp_architecture.png)
+![Figure 6.1 — WhatsApp Cloud API Architecture](diagrams/16_whatsapp_architecture.png)
 
 ````
 
@@ -749,7 +749,7 @@ message = client.messages.create(
 
 ### 6.3 Complete Notification Architecture
 
-![Figure 6.2 — Notification Architecture](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/10_notification_architecture.png)
+![Figure 6.2 — Notification Architecture](diagrams/10_notification_architecture.png)
 
 ````
 
@@ -783,7 +783,7 @@ def notify_slack(channel: str, message: str, blocks: list = None):
 
 ### 7.1 Multi-Agent Architecture Patterns
 
-![Figure 7.1 — Multi-Agent System Topologies](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/06_multi_agent_patterns.png)
+![Figure 7.1 — Multi-Agent System Topologies](diagrams/06_multi_agent_patterns.png)
 
 ````
 
@@ -904,7 +904,7 @@ response = llm.invoke(safe_input)
 
 ### 8.4 Authentication and Authorization
 
-![Figure 8.1 — Enterprise Auth Architecture](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/11_auth_architecture.png)
+![Figure 8.1 — Enterprise Auth Architecture](diagrams/11_auth_architecture.png)
 
 ````
 
@@ -940,7 +940,7 @@ All agent actions must be logged for compliance and debugging:
 
 ### 8.6 Enterprise AI Governance Framework
 
-![Figure 8.2 — AI Governance Framework](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/12_governance_framework.png)
+![Figure 8.2 — AI Governance Framework](diagrams/12_governance_framework.png)
 
 ````
 
@@ -1015,7 +1015,7 @@ Agents that process text, images, audio, and video:
 
 The evolution toward "AI employees" capable of operating independently over extended time horizons:
 
-![Figure 10.1 — Agentic AI Evolution Roadmap](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/14_future_roadmap.png)
+![Figure 10.1 — Agentic AI Evolution Roadmap](diagrams/14_future_roadmap.png)
 
 ````
 
