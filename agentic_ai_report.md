@@ -50,15 +50,7 @@ The journey from traditional automation to agentic AI systems represents a decad
 
 ![Figure 1.1 — Evolution from Traditional Automation to Agentic AI](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/13_evolution_timeline.png)
 
-```mermaid
-flowchart TD
-    A["1950s-1980s: Rule-Based Systems<br/>Expert systems, decision trees, hardcoded logic"]
-    B["1990s-2000s: Robotic Process Automation (RPA)<br/>UI bots, macro recorders, Selenium-style tooling"]
-    C["2010s: Machine Learning Pipelines<br/>Supervised/unsupervised learning, predictive analytics"]
-    D["2018-2022: Generative AI + LLM Assistants<br/>GPT-3, BERT, Codex; AI copilots, text generation"]
-    E["2023-2026: Agentic AI Workflows<br/>Autonomous agents, tool use, multi-step planning, multi-agent orchestration"]
-    A --> B --> C --> D --> E
-```
+````
 
 **Key inflection points:**
 - **2017:** Transformer architecture published (Vaswani et al., "Attention Is All You Need")
@@ -118,22 +110,10 @@ The term "agentic" derives from the concept of **agency**: the capacity of an en
 An autonomous workflow is a sequence of AI-driven actions that proceeds from a high-level instruction to a completed outcome without requiring a human to define each step.
 
 **Traditional workflow:**
-```mermaid
-flowchart LR
-    H["Human Defines Workflow"]
-    S1["Step 1"] --> S2["Step 2"] --> S3["Step 3"] --> S4["Step 4"] --> O["Output"]
-    H --> S1
-```
+````
 
 **Agentic workflow:**
-```mermaid
-flowchart TD
-    G["Human Defines Goal"]
-    P["Agent Plans Steps"]
-    X["Agent Executes<br/>Calls tools, handles errors, replans"]
-    Y["Agent Delivers Output + Summary"]
-    G --> P --> X --> Y
-```
+````
 
 ### 2.3 Core Components of an AI Agent
 
@@ -218,27 +198,7 @@ Tools are external functions the agent can invoke. Categories include:
 
 ![Figure 3.1 — Agentic AI System Architecture](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/01_system_architecture.png)
 
-```mermaid
-flowchart TD
-    subgraph IN["Input Layer"]
-        I1["Web/Mobile"]
-        I2["API/Webhook"]
-        I3["File Upload/Form"]
-    end
-    IN --> AG["API Gateway / Auth Layer<br/>Rate limiting, JWT/OAuth, logging"]
-    AG --> OR["Workflow Orchestration Layer<br/>LangGraph, n8n, Temporal, Airflow, custom"]
-    OR --> TQ["Task Queue"]
-    OR --> SM["State Management"]
-    OR --> ER["Error Recovery"]
-    OR --> AE["Agent Execution Layer"]
-    AE --> OA["Orchestrator Agent (Planner/LLM)"]
-    AE --> SA["Subagent Pool<br/>Researcher, Executor, Analyst, Notifier"]
-    AE --> LLM["LLM Provider Layer<br/>OpenAI, Claude, Gemini, local Llama"]
-    LLM --> MK["Memory & Knowledge Layer<br/>Redis session state, vector DB, SQL/NoSQL"]
-    MK --> TI["Tool Integration Layer<br/>Web search, code REPL, email, CRM, calendar"]
-    TI --> NL["Notification Layer<br/>WhatsApp, Slack, email, Teams/PagerDuty"]
-    NL --> MG["Monitoring & Governance Layer<br/>LangSmith, Datadog, OpenTelemetry, audit logs"]
-```
+````
 
 ### 3.2 Input Layer
 
@@ -271,33 +231,13 @@ The orchestration layer coordinates multi-step agent execution:
 
 ![Figure 3.2 — Workflow Orchestration Engine](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/02_workflow_orchestration.png)
 
-```mermaid
-flowchart TD
-    I["Input"] --> PI["Parse Intent"] --> RA["Route to Agent"] --> TG["Task Graph (DAG/Graph)"]
-    TG --> TA["Task A (Parallel)"]
-    TG --> TB["Task B (Sequential)"]
-    TG --> TC["Task C (Parallel)"]
-    TA --> AR["Aggregate Results"]
-    TB --> AR
-    TC --> AR
-    AR --> RO["Return Output"]
-```
+````
 
 ### 3.5 Memory Layer Architecture
 
 ![Figure 3.3 — Memory Architecture](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/03_memory_architecture.png)
 
-```mermaid
-flowchart TD
-    WM["Working Memory (In-Context)<br/>System prompt, conversation history, tool results<br/>Max ~128k-1M tokens"]
-    SM["Short-Term Memory (Session)<br/>Redis/Memcached<br/>TTL 1hr-24hr; user state; recent actions"]
-    LT["Long-Term Memory (Persistent)"]
-    VDB["Vector Database (Semantic Search)<br/>Pinecone, Weaviate"]
-    RDB["Relational/Document DB (Structured Records)<br/>PostgreSQL, MongoDB"]
-    WM --> SM --> LT
-    LT --> VDB
-    LT --> RDB
-```
+````
 
 ### 3.6 Vector Database Layer
 
@@ -305,14 +245,7 @@ Vector databases store embeddings—high-dimensional numerical representations o
 
 ![Figure 3.4 — Vector Database & RAG Pipeline](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/04_vector_db_pipeline.png)
 
-```mermaid
-flowchart TD
-    DI["Document Input"] --> EM["Embedding Model<br/>(e.g., text-embedding-3-large)"] --> FV["Float Vector (e.g., 1536 dimensions)"] --> VDB["Vector Database"]
-    VDB --> ANN["ANN Index (HNSW/IVF)"]
-    Q["Query: customer complaint about billing"] --> CSS["Cosine Similarity Search"]
-    VDB --> CSS
-    CSS --> TK["Top-K Relevant Documents"] --> RC["Retrieved Context"] --> LLM["LLM + Context"] --> ANS["Answer"]
-```
+````
 
 **Leading vector databases:**
 
@@ -329,15 +262,7 @@ flowchart TD
 
 ![Figure 3.5 — Human-in-the-Loop Architecture](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/05_hitl_workflow.png)
 
-```mermaid
-flowchart TD
-    AE["Agent Executing Workflow"] --> DP{"Is human approval required?"}
-    DP -->|No| CT["Continue"] --> NS["Next Step"]
-    DP -->|Yes| PW["Pause / Notify / Wait"] --> HR["Human Reviews"]
-    HR -->|Approve| CW["Continue Workflow"]
-    HR -->|Reject| TR["Terminate or Replan"]
-    HR -->|Modify| AR["Adjust and Rerun"]
-```
+````
 
 HITL checkpoints are typically configured for:
 - Actions with irreversible consequences (send email to 10,000 users)
@@ -558,12 +483,7 @@ result = executor.invoke({"input": "What is 15% of Apple's 2025 revenue?"})
 | **Best For** | Production-grade agents; complex multi-step workflows |
 
 **LangGraph workflow pattern:**
-```mermaid
-flowchart LR
-    ST["START"] --> RN["research_node"] --> AN["analyze_node"] --> SC{"should_continue?"}
-    SC -->|Yes| AR["additional_research"] --> AN
-    SC -->|No| ON["output_node"] --> EN["END"]
-```
+````
 
 #### 4.3.3 CrewAI
 
@@ -704,16 +624,7 @@ result = crew.kickoff(inputs={"topic": "Agentic AI market trends 2026"})
 
 ![Figure 5.1 — HR Recruitment Automation Workflow](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/07_hr_recruitment_workflow.png)
 
-```mermaid
-flowchart TD
-    J["Job Requisition Created (ATS/HR System)"] --> JD["Agent: JD Generator<br/>Drafts JD and posts to job boards"]
-    JD --> RS["Agent: Resume Screener<br/>Parses, scores, filters top candidates"]
-    RS --> OC["Agent: Outreach Coordinator<br/>Emails candidates and books interview slots"]
-    OC --> IP["Agent: Interview Prep<br/>Generates interviewer brief and candidate summary"]
-    IP --> HM["HITL Checkpoint: Hiring Manager Review"]
-    HM --> OG["Agent: Offer Generator<br/>Drafts and sends offer via DocuSign"]
-    OG --> NT["Notification: Slack to HR + WhatsApp to candidate"]
-```
+````
 
 **Tools Used:** LangGraph, GPT-4o, Greenhouse ATS API, Google Calendar API, SendGrid, DocuSign API, LlamaIndex
 
@@ -727,18 +638,7 @@ flowchart TD
 
 ![Figure 5.2 — Customer Support Automation Workflow](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/08_customer_support_workflow.png)
 
-```mermaid
-flowchart TD
-    CM["Customer Message (WhatsApp/Email/Chat)"] --> IC["Intent Classification Agent<br/>Billing, technical, returns, general"]
-    IC --> T1["Tier-1 FAQ Agent<br/>KB vector search, standard query resolution"]
-    IC --> T2["Tier-2 Deep Resolution<br/>CRM + order lookup + root cause analysis"]
-    T1 --> HE{"Human Escalation Needed?<br/>Low sentiment or complex request"}
-    T2 --> HE
-    HE -->|Yes| HU["Route to Human Agent"]
-    HE -->|No| ARS["Auto-resolve and send confirmation"]
-    HU --> CS["CSAT Survey -> Analytics"]
-    ARS --> CS
-```
+````
 
 **Tools Used:** Claude Sonnet, Pinecone (KB embeddings), Zendesk API, Twilio WhatsApp API, Salesforce CRM
 
@@ -752,16 +652,7 @@ flowchart TD
 
 ![Figure 5.3 — Invoice Processing Workflow](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/09_invoice_processing_workflow.png)
 
-```mermaid
-flowchart TD
-    IA["Invoice Arrives (Email Attachment/Upload Portal)"] --> DE["Document Extraction Agent<br/>OCR + structured fields extraction"]
-    DE --> VA["Validation Agent<br/>PO matching, duplicate check, tolerance check, vendor verification"]
-    VA --> AA["Auto-Approve<br/>Post to ERP, schedule payment, update GL"]
-    VA --> EQ["Exception Queue<br/>AP team review + Slack/Email alert + HITL approval"]
-    AA --> AL["Audit Log Entry Created"]
-    EQ --> AL
-    AL --> VN["Vendor Notification Sent"]
-```
+````
 
 **Tools Used:** LangGraph, AWS Textract, Claude Haiku (extraction), GPT-4o (validation), SAP API, SendGrid, Slack webhook
 
@@ -775,15 +666,7 @@ flowchart TD
 
 ![Figure 5.4 — Legal Workflow Automation](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/15_legal_workflow.png)
 
-```mermaid
-flowchart TD
-    CU["Contract Uploaded (PDF/DOCX)"] --> DI["Document Intelligence Agent<br/>Clause structure + metadata extraction"]
-    DI --> RA["Risk Analysis Agent<br/>Playbook comparison, non-standard clause flags, risk scoring"]
-    RA --> CA["Compliance Agent<br/>Jurisdiction checks + GDPR/HIPAA/SOX validation"]
-    CA --> RG["Report Generator Agent<br/>Executive summary, red-lines, risk scorecard"]
-    RG --> AT["HITL: Attorney Review"]
-    AT --> ES["E-signature Workflow (DocuSign/Adobe Sign)"]
-```
+````
 
 **Tools Used:** LlamaIndex, Claude Opus (complex reasoning), Pinecone (playbook embeddings), DocuSign API, LangGraph
 
@@ -795,14 +678,7 @@ flowchart TD
 
 **Objective:** Automate lead qualification, property matching, viewing scheduling, and reporting.
 
-```mermaid
-flowchart TD
-    LI["Lead Inquiry (Website/Portal/WhatsApp)"] --> LQ["Lead Qualification Agent<br/>Extract requirements + score + CRM enrichment"]
-    LQ --> PM["Property Matching Agent<br/>Search DB, rank matches, create personalized brief"]
-    PM --> OR["Outreach Agent<br/>Send top properties + offer viewing slots + follow-up reminders"]
-    OR --> VC["Viewing Confirmation Agent<br/>Confirm appointment and send logistics"]
-    VC --> PF["Post-Viewing Follow-up Agent<br/>Collect feedback, update CRM, trigger offer flow"]
-```
+````
 
 **Tools Used:** CrewAI, GPT-4o, Twilio WhatsApp, Calendly API, Salesforce/HubSpot, PostgreSQL + pgvector
 
@@ -812,13 +688,7 @@ flowchart TD
 
 **Objective:** Automate product management, customer service, returns, and marketing workflows.
 
-```mermaid
-flowchart TD
-    WF["Daily E-Commerce Agent Workflow"] --> INV["Inventory Agent (6 AM)<br/>Stock check, low-stock detection, PO generation, warehouse alerts"]
-    WF --> PR["Pricing Agent (Continuous)<br/>Competitor monitoring, guarded repricing, manager notification"]
-    WF --> CS["Customer Service Agent (24/7)<br/>Order queries, returns/refunds, product Q&A, escalation"]
-    WF --> MK["Marketing Agent (Weekly)<br/>Sales analysis, promo copy, social scheduling, email campaigns"]
-```
+````
 
 ---
 
@@ -826,16 +696,7 @@ flowchart TD
 
 **Objective:** Automate code review, test generation, documentation, and bug triage.
 
-```mermaid
-flowchart TD
-    PRC["GitHub PR Created"] --> CRA["Code Review Agent<br/>Diff analysis, lint/style checks, bug/security suggestions"]
-    CRA --> TGA["Test Generation Agent<br/>Generate and run tests; report coverage delta"]
-    TGA --> DA["Documentation Agent<br/>Update docstrings, changelog, README accuracy"]
-    DA --> SSA["Security Scan Agent<br/>SAST + dependency vulnerability checks"]
-    SSA --> PA{"PR Approval Decision"}
-    PA -->|All checks pass| AP["Auto-approve minor PRs"]
-    PA -->|Issues found| RC["Request changes + notify developer"]
-```
+````
 
 **Tools Used:** GitHub Actions, LangGraph, Claude Sonnet (code review), GPT-4o (test gen), Semgrep, Slack notifications
 
@@ -849,14 +710,7 @@ Meta's official enterprise WhatsApp API enabling programmatic message sending an
 
 ![Figure 6.1 — WhatsApp Cloud API Architecture](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/16_whatsapp_architecture.png)
 
-```mermaid
-flowchart TD
-    APP["Application / Agent"] --> META["Meta WhatsApp Business API"]
-    META --> SND["Send: Text, Image, Document, Button, List"]
-    META --> RCV["Receive: Webhook to your server (POST)"]
-    META --> TMP["Templates: Pre-approved outbound templates"]
-    META --> WEB["Webhook Endpoint (Your Server)"] --> MP["Message Processor / AI Agent"] --> ACT["Action: Reply / Trigger Workflow / Store in CRM"]
-```
+````
 
 **Key features:**
 - Template messages (for outbound, marketing)
@@ -897,20 +751,7 @@ message = client.messages.create(
 
 ![Figure 6.2 — Notification Architecture](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/10_notification_architecture.png)
 
-```mermaid
-flowchart TD
-    C["AI Agent Workflow Completion"] --> NO["Notification Orchestrator<br/>Select recipients, channels, and message content"]
-    NO --> WA["WhatsApp<br/>Twilio/Meta API"]
-    NO --> EM["Email<br/>SendGrid/Mailgun"]
-    NO --> SL["Slack<br/>Webhook/Slack SDK"]
-    NO --> SMS["SMS<br/>Twilio SMS/AWS SNS"]
-    NO --> PU["Push<br/>Firebase FCM"]
-    WA --> DC["Delivery Confirmation + Retry on Failure + Audit Logging"]
-    EM --> DC
-    SL --> DC
-    SMS --> DC
-    PU --> DC
-```
+````
 
 ### 6.4 Slack Integration Architecture
 
@@ -944,29 +785,7 @@ def notify_slack(channel: str, message: str, blocks: list = None):
 
 ![Figure 7.1 — Multi-Agent System Topologies](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/06_multi_agent_patterns.png)
 
-```mermaid
-flowchart TD
-    subgraph H["Pattern 1: Hierarchical (Orchestrator + Subagents)"]
-        ORC["Orchestrator Agent<br/>Planner, goal decomposition, delegation"]
-        R["Researcher"]
-        E["Executor"]
-        N["Notifier"]
-        ORC --> R
-        ORC --> E
-        ORC --> N
-    end
-
-    subgraph P["Pattern 2: Peer Collaboration (Debate/Review)"]
-        BUS["Shared Message Bus"]
-        A["Agent A (Proposer)"] <--> BUS
-        B["Agent B (Critic)"] <--> BUS
-        C["Agent C (Arbitrator)"] <--> BUS
-    end
-
-    subgraph L["Pattern 3: Pipeline (Assembly Line)"]
-        INP["Input"] --> A1["Agent 1: Extract"] --> A2["Agent 2: Analyze"] --> A3["Agent 3: Enrich"] --> A4["Agent 4: Format"] --> A5["Agent 5: Deliver"] --> OUT["Output"]
-    end
-```
+````
 
 ### 7.2 Orchestrator Agent Design
 
@@ -995,14 +814,7 @@ Determine the next action:
 
 ### 7.3 Memory Sharing Between Agents
 
-```mermaid
-flowchart TD
-    A["Agent A"] --> W1["Write: research_results"] --> SS["Shared State Store (Redis/LangGraph State)"]
-    B["Agent B"] --> R1["Read: research_results"] --> SS
-    B --> W2["Write: analysis_output"] --> SS
-    C["Agent C"] --> R2["Read: analysis_output"] --> SS
-    C --> W3["Write: final_report"] --> SS
-```
+````
 
 **Implementation with LangGraph:**
 ```python
@@ -1060,22 +872,7 @@ LLMs can generate plausible-sounding but factually incorrect information—a cri
 
 Adversarial inputs attempt to hijack agent behavior by embedding malicious instructions in data the agent processes.
 
-```mermaid
-flowchart TD
-    INJ["Prompt Injection in Untrusted Input"] --> DEC{"Treat as trusted instructions?"}
-    DEC -->|Yes| RISK["Risk: malicious action may be executed"]
-    DEC -->|No| SAFE["Safe handling path"]
-    DEF["Defense Controls"] --> D1["Input sanitization"]
-    DEF --> D2["Privilege separation"]
-    DEF --> D3["Tool authorization"]
-    DEF --> D4["Output validation"]
-    DEF --> D5["Sandboxing"]
-    D1 --> SAFE
-    D2 --> SAFE
-    D3 --> SAFE
-    D4 --> SAFE
-    D5 --> SAFE
-```
+````
 
 ### 8.3 Data Privacy and Compliance
 
@@ -1109,11 +906,7 @@ response = llm.invoke(safe_input)
 
 ![Figure 8.1 — Enterprise Auth Architecture](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/11_auth_architecture.png)
 
-```mermaid
-flowchart TD
-    REQ["User/System Request"] --> IDP["Identity Provider: Okta / Azure AD"] --> JWT["JWT Token Issued<br/>user_id, roles, permissions"]
-    JWT --> GW["API Gateway (token validation)"] --> AR["Agent Router (authorization check)"] --> EX["Agent Execution (role-based tool access)"]
-```
+````
 
 **RBAC for agent tools:**
 
@@ -1149,14 +942,7 @@ All agent actions must be logged for compliance and debugging:
 
 ![Figure 8.2 — AI Governance Framework](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/12_governance_framework.png)
 
-```mermaid
-flowchart TD
-    GF["AI Governance Framework"]
-    GF --> P["Policies<br/>AI use, data, model, vendor policies"]
-    GF --> PR["Processes<br/>Risk assessment, change management, incident response"]
-    GF --> C["Controls<br/>Technical guardrails, monitoring, testing"]
-    GF --> O["Oversight<br/>AI ethics board, audit committee, CISO/CTO"]
-```
+````
 
 ---
 
@@ -1231,15 +1017,7 @@ The evolution toward "AI employees" capable of operating independently over exte
 
 ![Figure 10.1 — Agentic AI Evolution Roadmap](c:/Users/user/OneDrive - Manipal University Jaipur/Desktop/AI-Workflows/diagrams/14_future_roadmap.png)
 
-```mermaid
-flowchart TD
-    S1["2023-2024: AI Assistants<br/>Query response, content generation, copilots"]
-    S2["2024-2025: AI Agents<br/>Multi-step execution, tool use, structured workflows"]
-    S3["2025-2027: AI Workers<br/>Long-running autonomy, complex project handling"]
-    S4["2027-2030: AI Colleagues<br/>Org integration, proactive operation, domain self-improvement"]
-    S5["2030+: AI Executives (Speculative)<br/>Strategic decisions, resource allocation, coordination"]
-    S1 --> S2 --> S3 --> S4 --> S5
-```
+````
 
 ### 10.2 Self-Improving AI Systems
 
